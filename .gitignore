@@ -1,0 +1,2 @@
+# Ignore snapshots of database from Redis
+dump.rdb
