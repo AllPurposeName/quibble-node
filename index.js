@@ -14,5 +14,5 @@ io.on('connection', function (socket) {
 clientSub.subscribe('main_channel');
 
 clientSub.on('message', function (channel, message) {
-  console.log(message);
+  io.sockets.emit('message', message);
 });
