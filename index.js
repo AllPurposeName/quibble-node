@@ -1,4 +1,4 @@
-const io = require('socket.io').listen(process.env.PORT || 3000);
+const io = require('socket.io').listen(process.env.PORT || 4200);
 const redis = require('redis');
 
 const clientSub = redis.createClient();
