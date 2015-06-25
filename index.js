@@ -3,16 +3,22 @@ const redis = require('redis');
 
 const clientSub = redis.createClient();
 
+var connections = 0;
+
 io.on('connection', function (socket) {
-  console.log('Someone has connected');
+  connections++;
+  console.log(connections + ' client(s) connected');
 
   socket.on('disconnect', function () {
     console.log('Someone has disconnected');
+    connections--;
   });
 });
 
-clientSub.subscribe('main_channel');
+clientSub.subscribe('channel');
 
 clientSub.on('message', function (channel, message) {
-  io.sockets.emit('message', message);
+  var msg = JSON.parse(message);
+  var clientChannel = io.of('/' + msg.room_slug);
+  clientChannel.emit('message', message);
 });
